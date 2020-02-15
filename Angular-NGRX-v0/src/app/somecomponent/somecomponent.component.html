@@ -1,0 +1,22 @@
+<p>somecomponent works!</p>
+
+
+<br>
+<br>
+
+<button id="increment" (click)="increment()">Increment</button>
+
+<div>Current Count: {{ $theAppState | async | json }}</div>
+
+<button id="decrement" (click)="decrement()">Decrement</button>
+
+<button id="reset" (click)="reset()">Reset Counter</button>
+
+    <h5>{{ $isWatered | async }}</h5>
+
+    <h5>{{  $message | async}}</h5>
+
+    <h5>{{ $count | async}}</h5>
+    
+    
+    <h5>{{ $newCount | async}}</h5>
