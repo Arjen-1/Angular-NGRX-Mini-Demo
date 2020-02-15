@@ -6,7 +6,14 @@
     <button id="increment" (click)="increment()">Increment</button>
     <br>
     <br>
-    <div>Current Count: {{ count$ | async }}</div>
+    <div>
+        <h3>Current Count: {{ count$ | async | json }}</h3>
+
+        <h4>{{countInUI}}</h4>
+        <h4>{{nameInUI}}</h4>
+        
+
+    </div>
     <br>
     <br>
     <button id="decrement" (click)="decrement()">Decrement</button>
