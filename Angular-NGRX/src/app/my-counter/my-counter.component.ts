@@ -9,9 +9,15 @@ import { increment, decrement, reset, changeName } from '../counter.actions';
   styleUrls: ['./my-counter.component.scss'],
 })
 export class MyCounterComponent {
+
+  nameInUI;
+  countInUI;
+
+  
+
   count$: Observable<number>;
 
-  constructor(private store: Store<{ count: number }>) {
+  constructor(private store: Store<{ count: number , name: string }>) {
     this.count$ = store.pipe(select('myAppState'));
   }
 
@@ -33,7 +39,10 @@ export class MyCounterComponent {
 
   ngOnInit(){
     this.count$.subscribe(data => {
-      console.log(data)
+      console.log(data.name , data.count)
+
+      this.nameInUI = data.name;
+      this.countInUI = data.count;
     })
   }
 }
