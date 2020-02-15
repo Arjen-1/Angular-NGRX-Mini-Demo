@@ -1,7 +1,19 @@
-<button id="increment" (click)="increment()">Increment</button>
 
-<div>Current Count: {{ count$ | async }}</div>
 
-<button id="decrement" (click)="decrement()">Decrement</button>
-
-<button id="reset" (click)="reset()">Reset Counter</button>
+<div class="container">
+    <br>
+    <br>
+    <button id="increment" (click)="increment()">Increment</button>
+    <br>
+    <br>
+    <div>Current Count: {{ count$ | async }}</div>
+    <br>
+    <br>
+    <button id="decrement" (click)="decrement()">Decrement</button>
+    <br>
+    <br>
+    <button id="reset" (click)="reset()">Reset Counter</button>
+    <br>
+    <br>
+    <button id="reset" (click)="changeName()">Change name to Mike Ross</button>
+</div>
