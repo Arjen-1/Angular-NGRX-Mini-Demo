@@ -1,5 +1,64 @@
-
-
+<div class="schema-container">
+    <div *ngIf="tracks.length < 1">
+        Loading data from state.. if available..
+    </div>
+    <div>
+        <button type="button" (click)="sendOveralSate()"> Genereer nieuw schema </button>
+    </div>
+    <!-- track time indicator -->
+    <div class="schema-track-basis-row">
+        <div class="container-timeslots">
+            <div class="track__information">
+                <div class="track__information-checkbox">
+                     
+                </div>
+                <div class="track__information-id">
+                     
+                </div>
+            </div>
+            <div class="track__schema">
+                <div *ngFor="let indicator of timeslotIndicators" >
+                    <div> 
+                        <div class="schema-block schema--empty schema--indicator">{{indicator}}</div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <!-- tracks -->
+    <div class="schema-baan-row" *ngFor="let baanItem of tracks ">
+        <div *ngIf="baanItem" class="container-timeslots">
+            <div class="track__information">
+                <div class="track__information--evenly">
+                    <div class="track__information-checkbox">
+                        <input type="checkbox" name="" id="track__information-checkbox+{{baanItem.track_id}}">
+                    </div>
+                    <div class="track__information-id">
+                        {{baanItem.track_id}}
+                    </div>
+                </div> 
+                <div class="track__information-activity">
+                    6x per dag 15 minuten
+                </div>
+            </div>
+            <div class="track__schema">
+                <div *ngFor="let timeSlot of baanItem.timeSlots ; let i = index" >
+                    <div (click)="timeSlotClick(timeSlot , baanItem.track_id, i)">
+                        <div *ngIf="timeSlot.colorCode === 'green'" class="schema-block schema--watering"></div>
+                        <div *ngIf="timeSlot.colorCode === 'orange'" class="schema-block schema--orange"></div>
+                        <div *ngIf="timeSlot.colorCode === 'red'" class="schema-block schema--red"></div>
+                        <div *ngIf="timeSlot.colorCode === 'empty'" class="schema-block schema--empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+        <div *ngIf="!baanItem" class="schema-block schema--available">
+            no baan item
+        </div>
+    </div>
+</div>
+<!-- 
 <div class="container">
     <br>
     <br>
@@ -9,8 +68,7 @@
     <div>
         <h3>Current Count: {{ count$ | async | json }}</h3>
 
-        <h4>{{countInUI}}</h4>
-        <h4>{{nameInUI}}</h4>
+        <h4>{{countInUI}}</h4> 
         
 
     </div>
@@ -19,8 +77,38 @@
     <button id="decrement" (click)="decrement()">Decrement</button>
     <br>
     <br>
-    <button id="reset" (click)="reset()">Reset Counter</button>
+    <button id="reset" (click)="reset()">Reset Counter</button> 
     <br>
     <br>
-    <button id="reset" (click)="changeName()">Change name to Mike Ross</button>
-</div>
+    <form (submit)="updateArray($event, WOPForm)" #WOPForm="ngForm" >
+        <div>
+            <input [(ngModel)]="quest1" name="quest1" type="checkbox"   checked>
+            <label for="scales">00:00</label>
+        </div>
+        <div>
+            <input [(ngModel)]="quest2" name="quest2" type="checkbox"   checked>
+            <label for="scales">04:00</label>
+        </div>
+        <div>
+            <input [(ngModel)]="quest3" name="quest3" type="checkbox"  >
+            <label for="scales">08:00</label>
+        </div>
+        <div>
+            <input [(ngModel)]="quest4" name="quest4" type="checkbox"   checked>
+            <label for="scales">12:00</label>
+        </div>
+        <div>
+            <input [(ngModel)]="quest5" name="quest5" type="checkbox"   checked>
+            <label for="scales">16:00</label>
+        </div>
+        <div>
+            <input [(ngModel)]="quest6" name="quest6" type="checkbox"   checked>
+            <label for="scales">20:00</label>
+        </div>
+        <button type="submit" >update the array</button>
+        <<button type="button" (click)='formSubmit(arForm)'> Submit form </button> 
+
+        
+    </form> 
+    
+</div>  -->
