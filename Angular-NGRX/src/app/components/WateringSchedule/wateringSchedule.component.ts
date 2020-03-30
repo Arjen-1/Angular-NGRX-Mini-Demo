@@ -5,20 +5,20 @@ import { Observable } from "rxjs";
 import {
   //waterSchedule,
   changeColorCodeUpdateTracks
-} from "../store/actions/wop.actions";
+} from "../../store/actions/wop.actions";
 
 import {
   selectWaterScheduleState,
   timeSlotsCreator,
   selectTracksState
-} from "../store/reducers/counter.reducer";
+} from "../../store/reducers/counter.reducer";
 
-import { Tracks, Track } from "../store/actions/wop.actions";
+import { Tracks, Track } from "../../store/actions/wop.actions";
 
 @Component({
-  selector: "app-my-counter",
-  templateUrl: "./my-counter.component.html",
-  styleUrls: ["./my-counter.component.scss"]
+  selector: "app-wateringSchedule",
+  templateUrl: "./wateringSchedule.component.html",
+  styleUrls: ["./wateringSchedule.component.scss"]
 })
 export class MyCounterComponent {
   tracks: Tracks;
@@ -52,29 +52,6 @@ export class MyCounterComponent {
   ];
 
   constructor(private store: Store<{ name: string; waterSchedule: any }>) {}
-
-  // updateArray(e, WOPForm) {
-  //   e.preventDefault();
-  //   //let wopform = WOPForm.value;
-  //   // let obj_values: any[] = Object.values(wopform);
-
-  //   // let _obj_values = obj_values.map(checkbox => {
-  //   //   return checkbox ? (checkbox = true) : (checkbox = false);
-  //   // });
-
-  //   // let _tracks: Tracks = {
-  //   //   tracks: [
-  //   //     {
-  //   //       track_id: "_id_0",
-  //   //       timeSlots: timeSlotsCreator(24)
-  //   //     },
-  //   //     {
-  //   //       track_id: "_id_1",
-  //   //       timeSlots: timeSlotsCreator(24)
-  //   //     }
-  //   //   ]
-  //   // };
-  // }
 
   // <schema functions>
 
