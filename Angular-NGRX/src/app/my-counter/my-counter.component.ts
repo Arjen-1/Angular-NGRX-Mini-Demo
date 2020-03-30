@@ -1,120 +1,115 @@
-import { Component } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { increment, decrement, reset } from '../store/actions/counter.actions';
-import { waterSchedule, changeColorCodeUpdateTracks  } from '../store/actions/wop.actions';
+import { Component } from "@angular/core";
+import { Store, select } from "@ngrx/store";
+import { Observable } from "rxjs";
 
-import { selectWaterScheduleState , timeSlotsCreator, selectTracksState } from '../store/reducers/counter.reducer';
+import {
+  //waterSchedule,
+  changeColorCodeUpdateTracks
+} from "../store/actions/wop.actions";
 
-import { Tracks, Track } from '../store/actions/wop.actions'; 
+import {
+  selectWaterScheduleState,
+  timeSlotsCreator,
+  selectTracksState
+} from "../store/reducers/counter.reducer";
+
+import { Tracks, Track } from "../store/actions/wop.actions";
 
 @Component({
-  selector: 'app-my-counter',
-  templateUrl: './my-counter.component.html',
-  styleUrls: ['./my-counter.component.scss'],
+  selector: "app-my-counter",
+  templateUrl: "./my-counter.component.html",
+  styleUrls: ["./my-counter.component.scss"]
 })
 export class MyCounterComponent {
+  tracks: Tracks;
+  //tracks$: Observable<number>;
 
-  nameInUI;
-  countInUI; 
-  tracks:Tracks;  
+  timeslotIndicators = [
+    "0:00",
+    "1:00",
+    "2:00",
+    "3:00",
+    "4:00",
+    "5:00",
+    "6:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00",
+    "0:00"
+  ];
 
-  count$: Observable<number>;
-  tracks$: Observable<number>;
+  constructor(private store: Store<{ name: string; waterSchedule: any }>) {}
 
-  timeslotIndicators=['0:00','1:00','2:00','3:00','4:00','5:00','6:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00','0:00',]
+  // updateArray(e, WOPForm) {
+  //   e.preventDefault();
+  //   //let wopform = WOPForm.value;
+  //   // let obj_values: any[] = Object.values(wopform);
 
-  constructor(private store: Store<{ count: number , name: string, waterSchedule: any }>) { 
+  //   // let _obj_values = obj_values.map(checkbox => {
+  //   //   return checkbox ? (checkbox = true) : (checkbox = false);
+  //   // });
 
-  }
-
-  increment() {
-    this.store.dispatch(increment());
-  }
-
-  decrement() {
-    this.store.dispatch(decrement());
-  }
-
-  reset() {
-    this.store.dispatch(reset());
-  }  
-  
-  updateArray(e, WOPForm){
-    e.preventDefault();   
-    let wopform = WOPForm.value; 
-    let obj_values:any[] = Object.values(wopform) 
-    
-    let _obj_values = obj_values.map((checkbox)=>{
-      return checkbox ? checkbox=true : checkbox=false;
-    }) 
-    
-    let _tracks:Tracks = {
-      tracks:[ {
-          track_id:'_id_0', 
-          timeSlots:timeSlotsCreator(24)
-      },
-      {
-          track_id:'_id_1', 
-          timeSlots:timeSlotsCreator(24)
-      }
-      ]
-  } 
-    
-    this.store.dispatch(waterSchedule( { arraydata: _tracks } ));
-  }
-
+  //   // let _tracks: Tracks = {
+  //   //   tracks: [
+  //   //     {
+  //   //       track_id: "_id_0",
+  //   //       timeSlots: timeSlotsCreator(24)
+  //   //     },
+  //   //     {
+  //   //       track_id: "_id_1",
+  //   //       timeSlots: timeSlotsCreator(24)
+  //   //     }
+  //   //   ]
+  //   // };
+  // }
 
   // <schema functions>
 
-  timeSlotClick = (timeSlot, track_id, indexVanTimeslot) => { 
-    let tracks 
+  timeSlotClick = (timeSlot, track_id, indexVanTimeslot) => {
+    let tracks;
     if (this.tracks instanceof Array) {
-      tracks = this.tracks.map((track:any) => {
+      tracks = this.tracks.map((track: any) => {
         let id = track.track_id;
         let theIdIWantToUpdate = track_id;
-        console.log(track.track_id ) 
-        if(id === theIdIWantToUpdate){ 
-          track.timeSlots[indexVanTimeslot].colorCode = 'red'; 
+        console.log(track.track_id);
+        if (id === theIdIWantToUpdate) {
+          track.timeSlots[indexVanTimeslot].colorCode = "red";
         }
-        return track
+        return track;
       });
     }
     this.store.dispatch(changeColorCodeUpdateTracks({ tracks }));
-  }
+  };
 
-
-  sendOveralSate(){
-    this.store.select<any>('myAppState').subscribe(state =>{
-      console.log('overallState could be sended away now',state)
+  sendOveralSate() {
+    this.store.select<any>("myAppState").subscribe(state => {
+      console.log("overallState could be sended away now", state);
     });
   }
 
   // </schema functions>
 
-  ngOnInit(){ 
-
-    this.store.select<any>('myAppState').subscribe(state =>{
-      console.log('overallState',state)
+  ngOnInit() {
+    this.store.select<any>("myAppState").subscribe(state => {
+      console.log("overallState", state);
     });
-    
-    // this.store.select<any>(selectWaterScheduleState).subscribe(state =>{
-    //   console.log('waterState',state)
-    //   //this.waterState = state.tracks
-    // });
-    
-    this.store.select<any>(selectTracksState).subscribe(state =>{
-      console.log('tracksState',state)
-      this.tracks = state
+
+    this.store.select<any>(selectTracksState).subscribe(state => {
+      console.log("tracksState", state);
+      this.tracks = state;
     });
-    
-    
-    
-
-
-
-
-
-
   }
 }
